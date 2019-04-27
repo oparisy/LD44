@@ -1,0 +1,76 @@
+27/04/2019 (samedi)
+Arrivé chez Ben (Lacanau) vendrdi soir, matériel installé, courses faites
+Nuit correcte mais pas assez reposé ; levé 8h
+
+Thème LudumDare 44 : "Your life is currency"
+
+Brainstorming jusqu'à 09h30 => idée de l'exploitation de parcelle décrite dans design.txt
+Plan général : avoir un moteur pour samedi soir, passer mon dimanche sur le polish
+Approche : je vais rapidement coder un moteur de terrain pour "avoir quelque chose",
+sans passer de temps sur un document de design initial ; j'ajouterai les règles
+et éléments de gameplay incrémentalement au fur et à mesure de ce que j'aurai réussi
+à réaliser et de mon temps disponible (plutôt que de renoncer à des idées régulièrement)
+
+"Isométrique" en projection ou JV <=> Orthographic dans three.js :
+https://en.wikipedia.org/wiki/Isometric_projection
+https://stackoverflow.com/questions/23450588/isometric-camera-with-three-js
+https://stackoverflow.com/questions/51623351/emulate-isometric-rendering-properly-in-three-js
+
+Choupi ! (tweens pour croissance)
+https://codepen.io/puritanner/pen/LbgMwo
+
+Environnement technique :
+ * javascript
+ * Support inférence de type VSCode (https://code.visualstudio.com/docs/nodejs/working-with-javascript#_type-checking-javascript)
+ * threejs (r104)
+ * vuejs (pour composants et possibilités du routeur pour accueil + jeu principal)
+ * Serveur local : python -m http.server 8000
+
+ Packer : plusieurs options :
+ * pas de packer (modules JSM chargés par le navigateur)
+ * j'ajouterai un packer post-soumission si trop de monde a des soucis (ou pour en mettre un au point au calme)
+ * ou starter vuejs si j'arrive à y charger du glTF out of the box
+
+Mais https://vuejs.org/v2/guide/installation.html n'oppose pas la CLI et l'inclusion via <script>, au contraire
+
+Avantage de la CLI : j'ai un projet up and running immédiatement
+
+Mise en place d'un helloworld vue minimal sans packer
+Après quelques essais cela ne semble pas simple à utiliser si je veux utiliser des composants SFC (.vue)
+=> utilisation de la CLI et croisage de doigts pour ne pas avoir de problèmes avec WebPack...
+
+J'utilise ce tuto vue cli :
+https://medium.com/codingthesmartway-com-blog/getting-started-with-vue-cli-3-1aecf529fc71
+
+$ npm uninstall vue-cli -g
+$ npm install -g @vue/cli
+$ vue --version => 3.6.3
+$ vue create woodlot-owner
+
+Je choisis les options suivantes :
+* Babel, router, linter
+* History mode for router : Y (quoi que ça puisse être)
+* Linter & formatter : ESLint + Standard
+* Lint on save
+* Config : dedicated config files
+* Save as presets : N
+
+Copie du contenu du répertoire dans LD44 une fois créé
+
+Pour tester :
+ $ npm run serve
+
+Comment distribuer ? Tutorial ici :
+https://medium.com/@Roli_Dori/deploy-vue-cli-3-project-to-github-pages-ebeda0705fbd
+
+$ git branch gh-pages
+création vue.config.js, pointant sur le nom du projet github
+Commentaire de /dist dans .gitignore
+$ npm run build
+$ git add dist
+$ git commit -m "Initial dist subtree commit"
+$ git subtree push --prefix dist origin gh-pages
+Dans Settings servir gh-pages (c'est le cas par défaut)
+
+La doc officielle est ici :
+https://cli.vuejs.org/guide/deployment.html#github-pages

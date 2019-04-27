@@ -1,0 +1,26 @@
+Thème : "Your life is currency"
+
+"Life" dans un contexte de jeu vidéo : barre de vie, vies discrètes
+Dans un contexte plus général : ensemble de ce qu'on a vécu
+Autres définitions : https://dictionary.cambridge.org/fr/dictionnaire/anglais/life
+
+"Currency" dans un contexte JV : valeur quantifiable dépensable
+Permet d'obtenir constructions, améliorations, équipement, unités suivant le genre
+Plus généralement : monnaie ayant cours dans un pays
+Plus rarement : fait d'être couramment connu/accepté :
+https://dictionary.cambridge.org/fr/dictionnaire/anglais/currency
+
+Idée : exploiter une parcelle de forêt
+Vendre des arbres régulièrement pour gagner de l'argent (biomasse <=> life)
+Vue isométrique, arbres en low poly
+Bonus : eau, heightmap
+L'argent permet de planter des arbres, d'acheter des outils plus performants, d'agrandir le terrain
+
+"Your (forest) life is currency"
+
+"Exploitation forestière" => "Lumbering"
+"Woodlot owner" => "propriétaire de boisé" => ce sera le nom du jeu
+
+Idées en vrac :
+* des montages / rochers qu'il faut payer pour détruire (et obtenir plus de terrain)
+* Déplacement du soleil / cycle jour/nuit (ombres dynamiques)
