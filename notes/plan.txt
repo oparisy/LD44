@@ -1,5 +1,6 @@
 Samedi :
 * [Fait] Idée traitant le thème
-* Document de design
+* [Fait] Framework vue
+* [Fait] "Hello world" caméra isométrique
 * Moteur de terrain
 * Premiers assets (arbres et herbe lowpoly)

@@ -1,4 +1,6 @@
 27/04/2019 (samedi - Lacanau)
 08h00 Réveil, prise de connaissance du thème
 09h30 Concepts et style graphique trouvés
-10h00 J'ai choisi ma stack technique ; pause
+11h00 J'ai choisi ma stack technique et publié un hello world ; pause
+11h45 Reprise
+13h15 Sample code isométrique three.js porté vers vuejs, fonctionne; pause

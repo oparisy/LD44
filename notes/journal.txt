@@ -74,3 +74,26 @@ Dans Settings servir gh-pages (c'est le cas par défaut)
 
 La doc officielle est ici :
 https://cli.vuejs.org/guide/deployment.html#github-pages
+
+Ensuite de manière générale, pour publier :
+* faire un "npm run build"
+* commiter normalement sur master (y compris dist)
+* faire "git subtree push --prefix dist origin gh-pages" pour mettre gh-pages à jour
+
+Site servi sur https://oparisy.github.io/LD44/
+En local : http://localhost:8080/LD44/
+
+Réorganisation pages du helloworld pour avoir au niveau du routeur /home et /game
+Ajout de threejs via npm install three --save
+Suppression de tous les ^ ppour bloquer les versions
+=> quelques versions à aligner ensuite
+
+Ecriture d'un composant "MainCanvas.vue" pour héberger le code threejs
+Portage de https://codepen.io/puritanner/pen/LbgMwo pour avoir une base de code
+Ajout d'un élément dans vue.config.js pour corriger automatiquement le plus possible d'erreurs remontées par le linter
+Ajout de TWEEN : npm install @tweenjs/tween.js --save
+Ajout de chroma-js
+Je me suis aidé de https://stackoverflow.com/a/49295320/38096 pour intégrer threejs et vue (il faut respecter le cycle de vie)
+
+Portage, pénible, style de codage bizarre : si je veux pouvoir utiliser "this", toutes les fonctions doivent être enregistrées auprès de vue ?
+(syntaxe "methods"). Dont acte, mais à creuser plus tard.
