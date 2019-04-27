@@ -6,11 +6,16 @@ import * as TWEEN from '@tweenjs/tween.js'
 import * as chroma from 'chroma-js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
+const tileSize = 8 // In world units
+const gridSize = 10 // In cells (per column or line)
+
 class Game {
   constructor (container, publicPath) {
     this.publicPath = publicPath
     this.width = container.clientWidth
     this.height = container.clientHeight
+
+    this.setupGroundData()
 
     this.createRenderer(container)
     this.scene = new THREE.Scene()
@@ -19,14 +24,7 @@ class Game {
 
     this.createGround()
 
-    // display demo content
     this.createLights(this.scene)
-    this.createHouse(0, 0, this.scene)
-    this.createHouse(0, -1, this.scene)
-    this.createHouse(0, 1 * 2, this.scene)
-    this.createHouse(-1, 1 * 1, this.scene)
-    this.createHouse(-1, -1 * 2, this.scene)
-    this.createHouse(1, 1, this.scene)
 
     this.loadTreeModels()
   }
@@ -66,52 +64,13 @@ class Game {
   createGround () {
     // Add a temporary ground plane
     let groundColor = 0x465b15
-    let groundGeo = new THREE.PlaneGeometry(80, 80)
+    let groundGeo = new THREE.PlaneGeometry(gridSize * tileSize, gridSize * tileSize)
     let groundMat = new THREE.MeshPhongMaterial({
       color: groundColor, side: THREE.DoubleSide
     })
     let groundMesh = new THREE.Mesh(groundGeo, groundMat)
     groundMesh.rotation.x = Math.PI / 2
     this.scene.add(groundMesh)
-  }
-
-  createHouse (x = 0, z = 0, scene) {
-    let tileSize = 8
-    x = x * tileSize
-    z = z * tileSize
-    let material = new THREE.MeshPhongMaterial({
-      color: 0xefefef
-    })
-    let d = tileSize - 2
-
-    let boxSizes = [
-      d,
-      d * 0.8333333333333,
-      d * 0.6333333333333,
-      d * 0.4333333333333
-    ]
-    let generalDelay = Math.random() * 1000
-    boxSizes.forEach((size, key) => {
-      let [width, height, depth] = [size, size, size] // w = h = d
-      let geo = new THREE.BoxGeometry(width, height, depth)
-      let mesh = new THREE.Mesh(geo, material)
-      mesh.position.x = x
-      mesh.position.z = z
-      this.scene.add(mesh)
-
-      var tween = new TWEEN.Tween(mesh.position)
-        .to(
-          {
-            y: key * 2
-          },
-          Math.random() * 250 + key * 250 + 750
-        )
-        .delay(generalDelay + Math.random() * 1000)
-        .yoyo(true)
-        .easing(TWEEN.Easing.Elastic.Out)
-        .repeat(Infinity)
-        .start()
-    })
   }
 
   createLights (scene) {
@@ -141,21 +100,83 @@ class Game {
     // scene.add(new THREE.PointLightHelper(light))
   }
 
+  setupGroundData () {
+    // Each groundData[x][y] is either undefined or a tree instance
+    this.groundData = []
+    for (let i = 0; i < gridSize; i++) {
+      let arr = []
+      this.groundData.push(arr)
+      for (let j = 0; j < gridSize; j++) {
+        arr.push(undefined)
+      }
+    }
+  }
+
   loadTreeModels () {
     var loader = new GLTFLoader().setPath(this.publicPath)
     loader.load('trees.glb', gltf => {
-      gltf.scene.traverse(function (child) {
-        // if ( child.isMesh ) {
-
-        // child.material.envMap = texture;
-
-        // }
-
-        console.log(child)
+      gltf.scene.traverse(child => {
+        // Collect empties (Object3D) owning respective tree models
+        if (child.name === 'Oak') {
+          this.oak = child
+        } else if (child.name === 'Pine') {
+          this.pine = child
+        } else if (child.name === 'Poplar') {
+          this.poplar = child
+        }
       })
 
-      this.scene.add(gltf.scene)
+      // Scale models to their adult size
+      this.oak.scale.set(3, 3, 3)
+      this.pine.scale.set(3, 3, 3)
+      this.poplar.scale.set(3, 3, 3)
+
+      this.modelsLoaded = true
     })
+  }
+
+  createTree (obj3D, gx, gy) {
+    let x = gx * tileSize
+    let z = gy * tileSize
+    // let d = tileSize - 2
+    let instance = obj3D.clone()
+    instance.position.x = x
+    instance.position.z = z
+    instance.scale.x = instance.scale.y = instance.scale.z = 0.2
+    this.scene.add(instance)
+
+    // Animate tree growth
+    let maxGrowth = 2 + Math.random()
+    var tween = new TWEEN.Tween(instance.scale)
+      .to(
+        {
+          x: maxGrowth,
+          y: maxGrowth,
+          z: maxGrowth
+        },
+        500 + Math.random() * 1000
+      )
+      .delay(500 + Math.random() * 500)
+      .easing(TWEEN.Easing.Elastic.Out)
+      .onUpdate(scale => {}) // Can be used to keep track of tree growth (pricing purpose?)
+      .start()
+
+    return instance
+  }
+
+  addRandomTree () {
+    // Pick a random, unused location
+    let gx = Math.trunc(Math.random() * gridSize)
+    let gy = Math.trunc(Math.random() * gridSize)
+    if (this.groundData[gx][gy] !== undefined) {
+      // Will slow over time, but this is just for testing purpose
+      return
+    }
+
+    // Pick a tree at random
+    let val = Math.random()
+    let kind = val < 0.33 ? this.oak : val < 0.66 ? this.pine : this.poplar
+    this.groundData[gx][gy] = this.createTree(kind, gx - gridSize / 2, gy - gridSize / 2)
   }
 
   animate (time) {
@@ -163,6 +184,12 @@ class Game {
     requestAnimationFrame(this.animate.bind(this))
     TWEEN.update()
     this.render()
+
+    if (this.modelsLoaded) {
+      if (Math.random() > 0.9) {
+        this.addRandomTree()
+      }
+    }
   }
 
   render () {

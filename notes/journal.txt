@@ -130,11 +130,18 @@ C'est le cas de mes modèles glTF
 
 Il faut ensuite obtenir le publicPath pour obtenir la "base URL"
 => le chargement fonctionne !
-Push vers gh-pages (npm run build && commit && git subtree push --prefix dist origin gh-pages) pour vérifier fonctionnement en prod
+Push vers gh-pages (npm run build && commit && git subtree push --prefix dist origin gh-pages && push)
+pour vérifier fonctionnement en prod
+=> OK sur gh-pages !
 
+J'ai pu récupérer les modèles d'arbre (les Object3D racine puisque j'avais mis des empties) en faisant un
+parcours du modèle de "scène" chargée depuis glTF et en filtrant par nom
+Ensuite "instanciation" possible grâce à Object3D#clone()
 
+J'ai un modèle minimal de sol (grille carrée gardant trace des emplacements ayant déjà un arbre)
+et une pousse par tweening (aléatoire pour l'instant)
 
-Jalon suivants : afficher un terrain, pouvoir cliquer pour afficher des arbres, les faire "pousser" via une série de tweens
+Jalon suivants : afficher un "vrai" terrain, pouvoir cliquer pour planter des arbres
 Pour garder les choses simples : chaque "tuile" de terrain sera un mesh et une géométrie, chaque arbre sera une géométrie
 (dont le mesh "adulte" sera chargé depuis un glTF et partagé entre ces géométries)
 

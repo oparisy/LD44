@@ -3,4 +3,9 @@ Samedi :
 * [Fait] Framework vue
 * [Fait] "Hello world" caméra isométrique
 * [Fait] Premiers assets (arbres lowpoly)
-* Moteur de terrain
+* [Fait] Pousse arbres avec tweening
+
+Nice to have :
+* Moteur de terrain (hauteurs)
+* Type de terrain (sol et eau)
+* Gadgets (herbe, insectes)

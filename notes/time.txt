@@ -13,3 +13,7 @@
 17h40 Reprise
 18h20 Ajout d'un plan temporaire pour le sol, fix clipping caméra, lumière pas colorées
 18h45 Chargement + ajout modèles à la scène OK
+19h20 Récupération arbre désiré depuis la scène glTF ; fix erreur empty modèle
+19h45 On peut instancier les arbres pour les placer programmatiquement ; pause
+21h00 Reprise après repas et visite Davy
+21h45 Modèle mémoire minimal de sol (grille), pousse arbres aléatoire avec tweening
