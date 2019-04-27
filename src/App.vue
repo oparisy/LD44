@@ -8,6 +8,13 @@
 </template>
 
 <style>
+html {
+    min-height:100%;
+}
+body {
+    position: relative;
+    min-height:100hv;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

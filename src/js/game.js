@@ -11,13 +11,15 @@ const gridSize = 10 // In cells (per column or line)
 
 class Game {
   constructor (container, publicPath) {
+    this.container = container
     this.publicPath = publicPath
     this.width = container.clientWidth
     this.height = container.clientHeight
+    console.log('container init size:', this.width, this.height)
 
     this.setupGroundData()
 
-    this.createRenderer(container)
+    this.createRenderer()
     this.scene = new THREE.Scene()
 
     this.setupCamera()
@@ -29,7 +31,7 @@ class Game {
     this.loadTreeModels()
   }
 
-  createRenderer (container) {
+  createRenderer () {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true
     })
@@ -37,7 +39,7 @@ class Game {
 
     this.renderer.setSize(this.width, this.height)
 
-    container.appendChild(this.renderer.domElement)
+    this.container.appendChild(this.renderer.domElement)
   }
 
   setupCamera () {
@@ -189,6 +191,28 @@ class Game {
       if (Math.random() > 0.9) {
         this.addRandomTree()
       }
+    }
+
+    this.checkForResize()
+  }
+
+  // TODO This does not work actually (container does not change size)
+  checkForResize () {
+    // Since there is no resize event for <div>,
+    // try to detect size change by comparison with previous values
+    if ((this.width !== this.container.clientWidth) ||
+      (this.height !== this.container.clientHeight)) {
+      this.width = this.container.clientWidth
+      this.height = this.container.clientHeight
+      console.log('container resized:', this.width, this.height)
+      // Update renderer and camera accordingly
+      this.renderer.setSize(this.width, this.height)
+      this.scene.remove(this.camera)
+      this.setupCamera()
+
+      // Avoid strange infinite resizings
+      this.width = this.container.clientWidth
+      this.height = this.container.clientHeight
     }
   }
 

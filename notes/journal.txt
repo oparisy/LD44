@@ -141,6 +141,9 @@ Ensuite "instanciation" possible grâce à Object3D#clone()
 J'ai un modèle minimal de sol (grille carrée gardant trace des emplacements ayant déjà un arbre)
 et une pousse par tweening (aléatoire pour l'instant)
 
+Tentative d'amélioration des positionnements, marges et tailles : j'ai pu planer un panel à gauche
+du canvas, mais sinon résultats peu probants
+
 Jalon suivants : afficher un "vrai" terrain, pouvoir cliquer pour planter des arbres
 Pour garder les choses simples : chaque "tuile" de terrain sera un mesh et une géométrie, chaque arbre sera une géométrie
 (dont le mesh "adulte" sera chargé depuis un glTF et partagé entre ces géométries)

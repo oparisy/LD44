@@ -5,7 +5,8 @@
       <router-link to="/">Home</router-link>
     </div>
     <div id="root">
-      <MainCanvas />
+      <div id="leftpane"></div>
+      <div id="canvas"><MainCanvas /></div>
     </div>
   </div>
 </template>
@@ -21,9 +22,28 @@ export default {
 }
 </script>
 
+// Cannot get rid of the fixed height for #canvas below!
 <style scoped>
+#about {
+  align-items: stretch;
+  padding:0px;
+  margin: 0px;
+  background-color: maroon;
+}
 #root {
   display: flex;
   flex-direction: row;
+  align-items: stretch;
+  background-color:crimson;
+}
+#leftpane {
+  flex:1;
+  background-color: cornflowerblue;
+  margin-left: 10px;
+}
+#canvas {
+  flex:3;
+  background-color: green;
+  height: 750px;
 }
 </style>

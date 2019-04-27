@@ -17,3 +17,4 @@
 19h45 On peut instancier les arbres pour les placer programmatiquement ; pause
 21h00 Reprise après repas et visite Davy
 21h45 Modèle mémoire minimal de sol (grille), pousse arbres aléatoire avec tweening
+23h00 Amélioration modérées layout... Fin de journée

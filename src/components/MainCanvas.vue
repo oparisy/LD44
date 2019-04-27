@@ -28,14 +28,7 @@ export default {
   overflow: hidden;
   padding: 0;
   margin: 0;
-
-  color: #222;
-  background-color: #bbb;
-  font-family: arial;
-  font-size: 100%;
-
-  height:600px;
-  width:500px;
-  flex:1;
+  background-color: rgb(209, 32, 200);
+  height: 100%;
 }
 </style>
