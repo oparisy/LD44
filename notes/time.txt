@@ -8,3 +8,7 @@
 15h00 Premier modèle d'arbre (blender 2.8)
 15h50 Deux autres arbres modélisés (pin et peuplier) ; pause (dont 10mn de sieste)
 16h10 Reprise
+16h50 Code réorganisé (un module "classique" hors composant vuejs)
+17h30 (Vague) amélioration dimensionnement canvas ; pause
+17h40 Reprise
+18h20 Ajout d'un plan temporaire pour le sol, fix clipping caméra, lumière pas colorées

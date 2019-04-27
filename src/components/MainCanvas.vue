@@ -32,5 +32,9 @@ export default {
   background-color: #bbb;
   font-family: arial;
   font-size: 100%;
+
+  height:600px;
+  width:500px;
+  flex:1;
 }
 </style>

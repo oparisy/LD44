@@ -100,10 +100,6 @@ Portage, pénible, style de codage bizarre : si je veux pouvoir utiliser "this",
 
 Première version commitée
 
-Jalon suivants : afficher un terrain, pouvoir cliquer pour afficher des arbres, les faire "pousser" via une série de tweens
-Pour garder les choses simples : chaque "tuile" de terrain sera un mesh et une géométrie, chaque arbre sera une géométrie
-(dont le mesh "adulte" sera chargé depuis un glTF et partagé entre ces géométries)
-
 Pour fixer l'échelle je modélise dans blender "par-dessus" un plan de 1m en position (0,0,0), orientation par défaut
 Pour partager un matériau : l'associer à un objet, le sélectionner, sélectionner tous les autres, Ctrl + L, "materials"
 Gotcha : cocher "use nodes" dans le "shader editor", sinon le graphe de noeuds n'est pas pris en compte...
@@ -116,5 +112,25 @@ J'enlève Edit > Preferences > Navigation > Orbit&Pan > Auto Perspective pour po
 sans repasser en perspective
 
 Export des trois types d'arbres dans le même glTF (trees.glb) ; passe bien dans viewer Windows
+
+
+J'ai pu réorganiser le code en l'exportant dans un module (une classe ES6 en fait)
+=> style de programmation ES6 classique
+
+Tentative de dimensionnement du canvas : un peu meilleur, mais les interactions avec flexbox restent un peu obscures
+=> polish demain
+
+Ajout d'un plan pour visualiser le sol, réglage position caméra pour éviter le clipping, les lumière ne sont plus colorées
+
+
+Jalon suivant : charger modèles d'arbres, les faire "popper" aléatoirement sur grille Isométrique
+
+
+
+
+Jalon suivants : afficher un terrain, pouvoir cliquer pour afficher des arbres, les faire "pousser" via une série de tweens
+Pour garder les choses simples : chaque "tuile" de terrain sera un mesh et une géométrie, chaque arbre sera une géométrie
+(dont le mesh "adulte" sera chargé depuis un glTF et partagé entre ces géométries)
+
 
 Pour plus tard, exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm

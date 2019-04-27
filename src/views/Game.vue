@@ -1,9 +1,11 @@
 <template>
   <div class="about">
-    <h1>This is the game page</h1>
-    <MainCanvas />
+    <!-- h1>This is the game page</h1 -->
     <div id="nav">
       <router-link to="/">Home</router-link>
+    </div>
+    <div id="root">
+      <MainCanvas />
     </div>
   </div>
 </template>
@@ -18,3 +20,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#root {
+  display: flex;
+  flex-direction: row;
+}
+</style>

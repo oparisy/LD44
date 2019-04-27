@@ -6,11 +6,14 @@ import * as chroma from 'chroma-js'
 
 class Game {
   constructor (container) {
+    this.width = container.clientWidth
+    this.height = container.clientHeight
+
     this.createRenderer(container)
     this.scene = new THREE.Scene()
 
     // ISOMETRIC CAMERA
-    let aspect = window.innerWidth / window.innerHeight
+    let aspect = this.width / this.height
     let d = 60
     this.camera = new THREE.OrthographicCamera(
       -d * aspect,
@@ -21,9 +24,22 @@ class Game {
       2000
     )
 
-    this.camera.position.set(10, 10, 10)
+    // Increase this as necessary to avoid near plane clipping
+    // Do not adjust near plane values!
+    let cameraDist = 50
+    this.camera.position.set(cameraDist, cameraDist, cameraDist)
     this.camera.lookAt(this.scene.position)
     this.scene.add(this.camera)
+
+    // Add a temporary ground plane
+    let groundColor = 0x465b15
+    let groundGeo = new THREE.PlaneGeometry(80, 80)
+    let groundMat = new THREE.MeshPhongMaterial({
+      color: groundColor, side: THREE.DoubleSide
+    })
+    let groundMesh = new THREE.Mesh(groundGeo, groundMat)
+    groundMesh.rotation.x = Math.PI / 2
+    this.scene.add(groundMesh)
 
     // display demo content
     this.createLights(this.scene)
@@ -41,7 +57,7 @@ class Game {
     })
     this.renderer.setClearColor(0x222222)
 
-    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    this.renderer.setSize(this.width, this.height)
 
     container.appendChild(this.renderer.domElement)
   }
@@ -87,24 +103,26 @@ class Game {
 
   createLights (scene) {
     // create a color scale (white to sth. not-really red)
-    let scale = chroma.scale(['white', 0.1 * Math.random() * 0xffffff])
+    // let scale = chroma.scale(['white', 0.1 * Math.random() * 0xffffff])
+    // let color = scale(0.8).hex()
+    let color = 0x7f7f7f
 
-    var light = new THREE.DirectionalLight(scale(0.8).hex())
+    var light = new THREE.DirectionalLight(color)
     light.position.set(10, 0, 0)
     this.scene.add(light)
     // scene.add(new THREE.DirectionalLightHelper(light))
 
-    var light1 = new THREE.DirectionalLight(scale(0.8).hex())
+    var light1 = new THREE.DirectionalLight(color)
     light1.position.set(0, 10, 0)
     this.scene.add(light1)
     // scene.add(new THREE.DirectionalLightHelper(light))
 
-    var light2 = new THREE.DirectionalLight(scale(0.8).hex())
+    var light2 = new THREE.DirectionalLight(color)
     light2.position.set(0, 0, 10)
     this.scene.add(light2)
     // scene.add(new THREE.DirectionalLightHelper(light))
 
-    var light3 = new THREE.PointLight(scale(0.8).hex())
+    var light3 = new THREE.PointLight(color)
     light3.position.set(0, 25, 100)
     this.scene.add(light3)
     // scene.add(new THREE.PointLightHelper(light))
