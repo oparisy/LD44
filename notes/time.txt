@@ -4,3 +4,7 @@
 11h00 J'ai choisi ma stack technique et publié un hello world ; pause
 11h45 Reprise
 13h15 Sample code isométrique three.js porté vers vuejs, fonctionne; pause
+13h50 Reprise
+15h00 Premier modèle d'arbre (blender 2.8)
+15h50 Deux autres arbres modélisés (pin et peuplier) ; pause (dont 10mn de sieste)
+16h10 Reprise

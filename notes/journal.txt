@@ -97,3 +97,24 @@ Je me suis aidé de https://stackoverflow.com/a/49295320/38096 pour intégrer th
 
 Portage, pénible, style de codage bizarre : si je veux pouvoir utiliser "this", toutes les fonctions doivent être enregistrées auprès de vue ?
 (syntaxe "methods"). Dont acte, mais à creuser plus tard.
+
+Première version commitée
+
+Jalon suivants : afficher un terrain, pouvoir cliquer pour afficher des arbres, les faire "pousser" via une série de tweens
+Pour garder les choses simples : chaque "tuile" de terrain sera un mesh et une géométrie, chaque arbre sera une géométrie
+(dont le mesh "adulte" sera chargé depuis un glTF et partagé entre ces géométries)
+
+Pour fixer l'échelle je modélise dans blender "par-dessus" un plan de 1m en position (0,0,0), orientation par défaut
+Pour partager un matériau : l'associer à un objet, le sélectionner, sélectionner tous les autres, Ctrl + L, "materials"
+Gotcha : cocher "use nodes" dans le "shader editor", sinon le graphe de noeuds n'est pas pris en compte...
+Pour faciliter l'utilisation dans le code, je définis un parent "empty" commun (Ctrl+P en sélectionnant l'empty en dernier)
+
+Je peux utiliser les collections pour organiser mes arbres et les cacher à volonté (en cachant la collection)
+Ainsi je peux utiliser le même setup d'éclairage et le plan de base, et modéliser les arbres dans la même scène
+
+J'enlève Edit > Preferences > Navigation > Orbit&Pan > Auto Perspective pour pouvoir tourner avec les raccourcis numpad
+sans repasser en perspective
+
+Export des trois types d'arbres dans le même glTF (trees.glb) ; passe bien dans viewer Windows
+
+Pour plus tard, exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm
