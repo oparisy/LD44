@@ -12,3 +12,4 @@
 17h30 (Vague) amélioration dimensionnement canvas ; pause
 17h40 Reprise
 18h20 Ajout d'un plan temporaire pour le sol, fix clipping caméra, lumière pas colorées
+18h45 Chargement + ajout modèles à la scène OK

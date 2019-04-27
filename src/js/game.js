@@ -3,15 +3,45 @@
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import * as chroma from 'chroma-js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 class Game {
-  constructor (container) {
+  constructor (container, publicPath) {
+    this.publicPath = publicPath
     this.width = container.clientWidth
     this.height = container.clientHeight
 
     this.createRenderer(container)
     this.scene = new THREE.Scene()
 
+    this.setupCamera()
+
+    this.createGround()
+
+    // display demo content
+    this.createLights(this.scene)
+    this.createHouse(0, 0, this.scene)
+    this.createHouse(0, -1, this.scene)
+    this.createHouse(0, 1 * 2, this.scene)
+    this.createHouse(-1, 1 * 1, this.scene)
+    this.createHouse(-1, -1 * 2, this.scene)
+    this.createHouse(1, 1, this.scene)
+
+    this.loadTreeModels()
+  }
+
+  createRenderer (container) {
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true
+    })
+    this.renderer.setClearColor(0x222222)
+
+    this.renderer.setSize(this.width, this.height)
+
+    container.appendChild(this.renderer.domElement)
+  }
+
+  setupCamera () {
     // ISOMETRIC CAMERA
     let aspect = this.width / this.height
     let d = 60
@@ -30,7 +60,9 @@ class Game {
     this.camera.position.set(cameraDist, cameraDist, cameraDist)
     this.camera.lookAt(this.scene.position)
     this.scene.add(this.camera)
+  }
 
+  createGround () {
     // Add a temporary ground plane
     let groundColor = 0x465b15
     let groundGeo = new THREE.PlaneGeometry(80, 80)
@@ -40,26 +72,6 @@ class Game {
     let groundMesh = new THREE.Mesh(groundGeo, groundMat)
     groundMesh.rotation.x = Math.PI / 2
     this.scene.add(groundMesh)
-
-    // display demo content
-    this.createLights(this.scene)
-    this.createHouse(0, 0, this.scene)
-    this.createHouse(0, -1, this.scene)
-    this.createHouse(0, 1 * 2, this.scene)
-    this.createHouse(-1, 1 * 1, this.scene)
-    this.createHouse(-1, -1 * 2, this.scene)
-    this.createHouse(1, 1, this.scene)
-  }
-
-  createRenderer (container) {
-    this.renderer = new THREE.WebGLRenderer({
-      antialias: true
-    })
-    this.renderer.setClearColor(0x222222)
-
-    this.renderer.setSize(this.width, this.height)
-
-    container.appendChild(this.renderer.domElement)
   }
 
   createHouse (x = 0, z = 0, scene) {
@@ -126,6 +138,23 @@ class Game {
     light3.position.set(0, 25, 100)
     this.scene.add(light3)
     // scene.add(new THREE.PointLightHelper(light))
+  }
+
+  loadTreeModels () {
+    var loader = new GLTFLoader().setPath(this.publicPath)
+    loader.load('trees.glb', gltf => {
+      gltf.scene.traverse(function (child) {
+        // if ( child.isMesh ) {
+
+        // child.material.envMap = texture;
+
+        // }
+
+        console.log(child)
+      })
+
+      this.scene.add(gltf.scene)
+    })
   }
 
   animate (time) {

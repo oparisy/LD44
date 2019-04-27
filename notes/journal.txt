@@ -125,6 +125,12 @@ Ajout d'un plan pour visualiser le sol, réglage position caméra pour éviter l
 
 Jalon suivant : charger modèles d'arbres, les faire "popper" aléatoirement sur grille Isométrique
 
+Les assets "statiques" doivent être placés dans "public" et pas dans "assets" afin que webpack n'intervienne pas
+C'est le cas de mes modèles glTF
+
+Il faut ensuite obtenir le publicPath pour obtenir la "base URL"
+=> le chargement fonctionne !
+
 
 
 

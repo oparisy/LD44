@@ -9,14 +9,15 @@ export default {
   name: 'MainCanvas',
   data () {
     return {
-      game: null
+      game: null,
+      publicPath: process.env.BASE_URL
     }
   },
   methods: {
   },
   mounted () {
     let container = document.getElementById('container')
-    this.game = new Game(container)
+    this.game = new Game(container, this.publicPath)
     this.game.animate()
   }
 }
