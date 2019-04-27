@@ -1,5 +1,6 @@
 
 /* eslint no-unused-vars: "off" */
+/* eslint-disable no-console */
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import * as chroma from 'chroma-js'
