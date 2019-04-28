@@ -32,5 +32,7 @@
 17h15 Reprise
 18h00 Sons
 19h30 Moteur de terrain ; pause
+20h00 Reprise
+21h00 Système de niveaux
 
 Je dois être dans la voiture à 23h => page compo, derniers tests etc. à 22h

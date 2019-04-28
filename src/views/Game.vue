@@ -1,7 +1,7 @@
 <template>
   <div id="root">
-    <div id="leftpane"><ControlPanel v-bind:gameController="gameController"/></div>
-    <div id="canvas"><MainCanvas v-bind:gameController="gameController"/></div>
+    <div id="leftpane"><ControlPanel v-bind:gameController="gameController" @next-level="onNextLevel"/></div>
+    <div id="canvas"><MainCanvas v-bind:gameController="gameController" ref="mainCanvas"/></div>
   </div>
 </template>
 
@@ -37,6 +37,14 @@ export default {
 
       let canvas = document.getElementById('canvas')
       canvas.style.height = (totalHeight - canvas.offsetTop - margin) + 'px'
+    }
+  },
+  methods: {
+    onNextLevel: function () {
+      if (this.gameController.onBuyNextLevel()) {
+        console.log('Reset game state to next level')
+        this.$refs.mainCanvas.toNextLevel()
+      }
     }
   }
 }

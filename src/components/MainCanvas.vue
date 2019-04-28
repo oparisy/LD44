@@ -26,12 +26,21 @@ export default {
       if (this.gameRenderer) {
         this.gameRenderer.onClick(event)
       }
+    },
+    toNextLevel () {
+      if (this.gameRenderer) {
+        this.gameRenderer.halt()
+        this.buildRenderer()
+      }
+    },
+    buildRenderer () {
+      let container = document.getElementById('container')
+      this.gameRenderer = new GameRenderer(container, this.publicPath, this.gameController)
+      this.gameRenderer.animate()
     }
   },
   mounted () {
-    let container = document.getElementById('container')
-    this.gameRenderer = new GameRenderer(container, this.publicPath, this.gameController)
-    this.gameRenderer.animate()
+    this.buildRenderer()
   }
 }
 </script>

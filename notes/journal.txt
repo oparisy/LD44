@@ -174,3 +174,5 @@ Terrain réalisé. Trouver un algo avec du Perlin noise n'a pas été trop diffi
 mais le calage vertices / faces / edges a été un enfer. Ecrire un helper pour les PlaneGeometry à l'avenir ?
 Rendu "flat" moche pour le terrain => je reste en smooth. Phong n'est pas réaliste mais donne de meilleures ombres
 => je garde
+
+J'ai pu sans trop de difficulté faire un mécanisme de réinitialisation permettant de changer de niveau

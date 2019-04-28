@@ -8,13 +8,13 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Noise } from 'noisejs'
 
 const tileSize = 8 // In world units
-const gridSize = 10 // In cells (per column or line)
 
 class GameRenderer {
   constructor (container, publicPath, gameController) {
     this.container = container
     this.publicPath = publicPath
     this.gameController = gameController
+    this.gridSize = gameController.gridSize
     this.width = container.clientWidth
     this.height = container.clientHeight
 
@@ -77,11 +77,11 @@ class GameRenderer {
 
   createGround () {
     let groundColor = 0x465b15
-    this.groundGeo = new THREE.PlaneGeometry(gridSize * tileSize, gridSize * tileSize, gridSize, gridSize)
+    this.groundGeo = new THREE.PlaneGeometry(this.gridSize * tileSize, this.gridSize * tileSize, this.gridSize, this.gridSize)
 
     // Okay maybe I adapted this from https://codepen.io/ptc24/pen/BpXbOW
     let noise = new Noise(Math.random())
-    let sz = gridSize + 1
+    let sz = this.gridSize + 1
     for (var i = 0; i < sz; i++) {
       for (var j = 0; j < sz; j++) {
         var ex = 0.5
@@ -172,10 +172,10 @@ class GameRenderer {
   setupGroundData () {
     // Each groundData[x][y] is either null/undefined or a tree instance
     this.groundData = []
-    for (let i = 0; i < gridSize; i++) {
+    for (let i = 0; i < this.gridSize; i++) {
       let arr = []
       this.groundData.push(arr)
-      for (let j = 0; j < gridSize; j++) {
+      for (let j = 0; j < this.gridSize; j++) {
         arr.push(undefined)
       }
     }
@@ -216,13 +216,13 @@ class GameRenderer {
     let gy = data.gy
 
     // "tileSize / 2" offset to be in the middle of cells
-    let x = (gx - gridSize / 2) * tileSize + tileSize / 2
-    let z = (gy - gridSize / 2) * tileSize + tileSize / 2
+    let x = (gx - this.gridSize / 2) * tileSize + tileSize / 2
+    let z = (gy - this.gridSize / 2) * tileSize + tileSize / 2
 
     // Extract an height from the grid
     // Sweat on the wireframe to get those indexes...
-    let idx1 = gx + 1 + (gridSize + 1) * (9 - gy)
-    let idx2 = gx + (gridSize + 1) * ((9 - gy) + 1)
+    let idx1 = gx + 1 + (this.gridSize + 1) * ((this.gridSize - 1) - gy)
+    let idx2 = gx + (this.gridSize + 1) * (((this.gridSize - 1) - gy) + 1)
     let vert1 = this.groundGeo.vertices[idx1]
     let vert2 = this.groundGeo.vertices[idx2]
     let height = (-vert1.z + -vert2.z) / 2 // Neg because +z is up and many tests below...
@@ -271,8 +271,8 @@ class GameRenderer {
 
   addRandomTree () {
     // Pick a random, unused location
-    let gx = Math.trunc(Math.random() * gridSize)
-    let gy = Math.trunc(Math.random() * gridSize)
+    let gx = Math.trunc(Math.random() * this.gridSize)
+    let gy = Math.trunc(Math.random() * this.gridSize)
     if (this.groundData[gx][gy]) {
       // Will slow over time, but this is just for testing purpose
       return
@@ -294,6 +294,10 @@ class GameRenderer {
   }
 
   animate (time) {
+    if (this.halted) {
+      return
+    }
+
     // For the "bind" rationale, see https://stackoverflow.com/a/6065221/38096
     requestAnimationFrame(this.animate.bind(this))
     TWEEN.update()
@@ -375,8 +379,8 @@ class GameRenderer {
 
         // Compute coordinates from the faceIndex (take advantage of PlaneGeometry regular structure)
         let squareIndex = (faceIndex - (faceIndex % 2)) / 2
-        let gx = squareIndex % gridSize
-        let gy = gridSize - 1 - (squareIndex - gx) / gridSize
+        let gx = squareIndex % this.gridSize
+        let gy = this.gridSize - 1 - (squareIndex - gx) / this.gridSize
         this.overedGround = new THREE.Vector2(gx, gy)
       }
     }
@@ -414,6 +418,11 @@ class GameRenderer {
       // Update game model
       this.gameController.onTreePlanted(tree)
     }
+  }
+
+  halt () {
+    this.renderer.domElement.remove()
+    this.halted = true
   }
 }
 

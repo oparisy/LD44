@@ -1,5 +1,6 @@
 <template>
   <div id="controlroot">
+    <div id="level"><span class="label">Level: </span><span class="value">{{gameController.level}}</span></div>
     <div id="currency"><span class="label">Currency: </span><span class="value">{{gameController.credits}}</span></div>
     <div id="clock"><span class="label">Clock: </span><span class="value">{{Math.floor(gameController.hour)}}h00</span></div>
     <div id="actions">
@@ -8,7 +9,7 @@
       <input type="radio" id="pine" value="pine" v-model="gameController.toPlant"><label for="pine">Pine</label><br/>
       <input type="radio" id="poplar" value="poplar" v-model="gameController.toPlant"><label for="poplar">Poplar</label><br/>
     </div>
-    <!-- div class="fill"></div -->
+    <div id="nextlevel"><button type="button" v-on:click="onNextLevel">Buy Bigger Land</button></div>
     <div id="navbox">
       <router-link to="/">Back to Home</router-link>
     </div>
@@ -21,6 +22,11 @@ export default {
   name: 'ControlPanel',
   props: {
     gameController: Object
+  },
+  methods: {
+    onNextLevel: function () {
+      this.$emit('next-level')
+    }
   }
 }
 </script>
@@ -38,15 +44,18 @@ export default {
     border-radius: 10px;
   }
 
-  #currency {
+  #level {
     margin-top: 15px;
   }
 
   #actions {
-    margin-top: 15px;
+    margin-top: 30px;
     flex: 1 1 auto;
   }
-
+  #nextlevel {
+    margin-top: 15px;
+    flex: 5 5 auto;
+  }
   #navbox {
      margin-top:auto;
      margin-bottom:15px;

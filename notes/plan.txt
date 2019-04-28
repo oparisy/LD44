@@ -16,12 +16,12 @@ Dimanche :
  * [Fait] Ombres (Exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm)
  * [Fait] Sons
  * [Fait] Moteur de terrain (hauteurs) + matériau moins "plastique"
+ * [Fait] Mécanisme de niveau : des terrains de plus en plus grands
 
 TODO :
 * Page d'accueil
 * Créer page compo
 * "Equilibrage" (les arbres ne doivent pas pousser instantanément, pas de crédits négatifs...)
-* Mécanisme de niveau : des terrains de plus en plus grands, seedés avec qq arbres
 * Améliorer CSS control panel
 
 Bonus :
