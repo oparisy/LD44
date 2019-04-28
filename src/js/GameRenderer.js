@@ -230,6 +230,8 @@ class GameRenderer {
     }
 
     this.checkForResize()
+
+    this.gameController.onTick(time)
   }
 
   // TODO This does not work actually (container does not change size)

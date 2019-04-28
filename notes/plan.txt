@@ -11,9 +11,9 @@ Dimanche :
  * [Fait] UI pour dépenser de l'argent
  * [Fait] Layout control panel
  * [Fait] Tailles et marges CSS
+ * [Fait] Heure
 
 Nice to have :
-* Heure
 * Cycle jour / nuit
 * Ombres
 * Exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm
