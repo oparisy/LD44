@@ -6,6 +6,8 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+
 import MainCanvas from '@/components/MainCanvas.vue'
 import ControlPanel from '@/components/ControlPanel.vue'
 import { GameController } from '../js/GameController.js'

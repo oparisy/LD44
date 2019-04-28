@@ -132,7 +132,7 @@ Il faut ensuite obtenir le publicPath pour obtenir la "base URL"
 => le chargement fonctionne !
 Push vers gh-pages (npm run build && commit && git subtree push --prefix dist origin gh-pages && git push)
 pour vérifier fonctionnement en prod
-=> OK sur gh-pages !
+=> OK sur gh-pages ! (https://oparisy.github.io/LD44/)
 
 J'ai pu récupérer les modèles d'arbre (les Object3D racine puisque j'avais mis des empties) en faisant un
 parcours du modèle de "scène" chargée depuis glTF et en filtrant par nom
