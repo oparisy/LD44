@@ -169,3 +169,8 @@ Cette fois-ci, les choses se sont bien passées avec les ombres
 
 Je vais essayer ceci pour le son :
 https://www.reddit.com/r/ludumdare/comments/bgyu0l/announcing_zzfx_the_zuper_zmall_zeeded_zound/
+
+Terrain réalisé. Trouver un algo avec du Perlin noise n'a pas été trop difficile,
+mais le calage vertices / faces / edges a été un enfer. Ecrire un helper pour les PlaneGeometry à l'avenir ?
+Rendu "flat" moche pour le terrain => je reste en smooth. Phong n'est pas réaliste mais donne de meilleures ombres
+=> je garde

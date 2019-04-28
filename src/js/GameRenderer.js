@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import * as chroma from 'chroma-js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { Noise } from 'noisejs'
 
 const tileSize = 8 // In world units
 const gridSize = 10 // In cells (per column or line)
@@ -76,16 +77,40 @@ class GameRenderer {
 
   createGround () {
     let groundColor = 0x465b15
-    let groundGeo = new THREE.PlaneGeometry(gridSize * tileSize, gridSize * tileSize, gridSize, gridSize)
+    this.groundGeo = new THREE.PlaneGeometry(gridSize * tileSize, gridSize * tileSize, gridSize, gridSize)
+
+    // Okay maybe I adapted this from https://codepen.io/ptc24/pen/BpXbOW
+    let noise = new Noise(Math.random())
+    let sz = gridSize + 1
+    for (var i = 0; i < sz; i++) {
+      for (var j = 0; j < sz; j++) {
+        var ex = 0.5
+        let term1 = noise.simplex2(i / sz, j / sz)
+        let term2 = noise.simplex2((i + 2 * sz) / (sz / 2), j / (sz / 2)) * Math.pow(ex, 1)
+        let term3 = 0// noise.simplex2((i + 4 * sz) / (sz / 4), j / (sz / 4)) * Math.pow(ex, 2)
+        let term4 = 0// noise.simplex2((i + 6 * sz) / (sz / 8), j / (sz / 8)) * Math.pow(ex, 3)
+        let term5 = 0// noise.simplex2((i + 8 * sz) / (sz / 16), j / (sz / 16)) * Math.pow(ex, 4)
+        let height = (term1 + term2 + term3 + term4 + term5) / 2
+        this.groundGeo.vertices[i + j * sz].z = -height * 6 // +z is down
+        // this.groundGeo.vertices[i + j * sz].z = 0
+      }
+    }
 
     // Debugging purpose
     // let groundMat = new THREE.MeshBasicMaterial({ wireframe: true, side: THREE.DoubleSide })
 
+    // Shiny but pretty!
     let groundMat = new THREE.MeshPhongMaterial({
-      color: groundColor, side: THREE.DoubleSide
+      color: groundColor, side: THREE.DoubleSide/*, flatShading: true */
     })
 
-    let groundMesh = new THREE.Mesh(groundGeo, groundMat)
+    // No phong since we do not want highlights on ground
+    // But shadows are ugly on this (too dark!) => I keep MeshPhong
+    // let groundMat = new THREE.MeshLambertMaterial({
+    //  color: groundColor, side: THREE.DoubleSide, flatShading: true
+    // })
+
+    let groundMesh = new THREE.Mesh(this.groundGeo, groundMat)
     groundMesh.rotation.x = Math.PI / 2
     groundMesh.receiveShadow = true
 
@@ -132,7 +157,7 @@ class GameRenderer {
     this.envLights.push(light3)
 
     // The sun
-    let sphere = new THREE.SphereGeometry(0.5, 16, 8)
+    // let sphere = new THREE.SphereGeometry(0.5, 16, 8)
 
     this.sunLight = new THREE.PointLight(0xFFFFFF, 1, 1000, 2)
     // this.sunlightMesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xffffff }))
@@ -194,11 +219,31 @@ class GameRenderer {
     let x = (gx - gridSize / 2) * tileSize + tileSize / 2
     let z = (gy - gridSize / 2) * tileSize + tileSize / 2
 
+    // Extract an height from the grid
+    // Sweat on the wireframe to get those indexes...
+    let idx1 = gx + 1 + (gridSize + 1) * (9 - gy)
+    let idx2 = gx + (gridSize + 1) * ((9 - gy) + 1)
+    let vert1 = this.groundGeo.vertices[idx1]
+    let vert2 = this.groundGeo.vertices[idx2]
+    let height = (-vert1.z + -vert2.z) / 2 // Neg because +z is up and many tests below...
+
+    // Debugging purpose
+    /*
+    let sphere = new THREE.SphereGeometry(0.5, 16, 8)
+    let dot1 = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xffff00 }))
+    let dot2 = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xffff00 }))
+    dot1.position.set(vert1.x, -vert1.z, vert1.y)
+    dot2.position.set(vert2.x, -vert2.z, vert2.y)
+    this.scene.add(dot1)
+    this.scene.add(dot2)
+    */
+
     let obj3D = kindName === 'oak' ? this.oak : (kindName === 'pine' ? this.pine : this.poplar)
 
     let instance = obj3D.clone()
     instance.position.x = x
     instance.position.z = z
+    instance.position.y = height
     instance.scale.x = instance.scale.y = instance.scale.z = 0.2
     this.scene.add(instance)
 

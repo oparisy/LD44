@@ -31,5 +31,6 @@
 16h45 Ombres, soleil se déplaçant, cycle jour/nuit ; pause, sieste
 17h15 Reprise
 18h00 Sons
+19h30 Moteur de terrain ; pause
 
 Je dois être dans la voiture à 23h => page compo, derniers tests etc. à 22h
