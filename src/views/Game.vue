@@ -5,7 +5,7 @@
       <router-link to="/">Home</router-link>
     </div>
     <div id="root">
-      <div id="leftpane"></div>
+      <div id="leftpane"><ControlPanel v-bind:credits="gameController.credits"/></div>
       <div id="canvas"><MainCanvas /></div>
     </div>
   </div>
@@ -13,11 +13,20 @@
 
 <script>
 import MainCanvas from '@/components/MainCanvas.vue'
+import ControlPanel from '@/components/ControlPanel.vue'
+import { GameController } from '../js/GameController.js'
 
 export default {
   name: 'game',
   components: {
-    MainCanvas
+    MainCanvas, ControlPanel
+  },
+  data () {
+    return {
+      gameController: null }
+  },
+  mounted () {
+    this.gameController = new GameController()
   }
 }
 </script>

@@ -1,24 +1,29 @@
 <template>
-  <div id="container"></div>
+  <div id="container" v-on:mousemove="onMouseMove"></div>
 </template>
 
 <script>
-import { Game } from '../js/game.js'
+import { GameRenderer } from '../js/GameRenderer.js'
 
 export default {
   name: 'MainCanvas',
   data () {
     return {
-      game: null,
+      gameRenderer: null,
       publicPath: process.env.BASE_URL
     }
   },
   methods: {
+    onMouseMove (event) {
+      if (this.gameRenderer) {
+        this.gameRenderer.onMouseMove(event)
+      }
+    }
   },
   mounted () {
     let container = document.getElementById('container')
-    this.game = new Game(container, this.publicPath)
-    this.game.animate()
+    this.gameRenderer = new GameRenderer(container, this.publicPath)
+    this.gameRenderer.animate()
   }
 }
 </script>

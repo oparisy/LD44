@@ -5,7 +5,20 @@ Samedi :
 * [Fait] Premiers assets (arbres lowpoly)
 * [Fait] Pousse arbres avec tweening
 
+Dimanche :
+
+Core gameplay :
+ * Compteur de crédits
+ * UI pour dépenser de l'argent
+ * Interactions souris minimales avec l'environnement 
+
 Nice to have :
 * Moteur de terrain (hauteurs)
 * Type de terrain (sol et eau)
 * Gadgets (herbe, insectes)
+* hover pour savoir quel est l'âge et la valeur d'un arbre
+* Sons
+* Musiue
+* Cycle jour / nuit
+* Ombres
+* Terrain extensible

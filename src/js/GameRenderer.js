@@ -9,13 +9,18 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 const tileSize = 8 // In world units
 const gridSize = 10 // In cells (per column or line)
 
-class Game {
+class GameRenderer {
   constructor (container, publicPath) {
     this.container = container
     this.publicPath = publicPath
     this.width = container.clientWidth
     this.height = container.clientHeight
     console.log('container init size:', this.width, this.height)
+
+    // Three objects which can react to a mouse over
+    this.mouseReactive = []
+
+    this.mouse = new THREE.Vector2()
 
     this.setupGroundData()
 
@@ -137,7 +142,7 @@ class Game {
     })
   }
 
-  createTree (obj3D, gx, gy) {
+  createTree (obj3D, gx, gy, data) {
     let x = gx * tileSize
     let z = gy * tileSize
     // let d = tileSize - 2
@@ -146,6 +151,9 @@ class Game {
     instance.position.z = z
     instance.scale.x = instance.scale.y = instance.scale.z = 0.2
     this.scene.add(instance)
+
+    // We cannot detect the object3D itself, only its children meshes
+    instance.children.forEach(c => { c.data = data; this.mouseReactive.push(c) })
 
     // Animate tree growth
     let maxGrowth = 2 + Math.random()
@@ -178,7 +186,11 @@ class Game {
     // Pick a tree at random
     let val = Math.random()
     let kind = val < 0.33 ? this.oak : val < 0.66 ? this.pine : this.poplar
-    this.groundData[gx][gy] = this.createTree(kind, gx - gridSize / 2, gy - gridSize / 2)
+
+    let treeData = { type: kind.name, x: gx, y: gy }
+    this.groundData[gx][gy] = treeData
+
+    this.createTree(kind, gx - gridSize / 2, gy - gridSize / 2, treeData)
   }
 
   animate (time) {
@@ -217,8 +229,23 @@ class Game {
   }
 
   render () {
+    this.checkOvered()
     this.renderer.render(this.scene, this.camera)
+  }
+
+  onMouseMove (event) {
+    // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
+    // Adjusted since canvas does not use full window, see https://stackoverflow.com/q/34892328/38096
+    this.mouse.x = (event.offsetX / this.width) * 2 - 1
+    this.mouse.y = -(event.offsetY / this.height) * 2 + 1
+  }
+
+  checkOvered () {
+    let raycaster = new THREE.Raycaster()
+    raycaster.setFromCamera(this.mouse, this.camera)
+    let intersects = raycaster.intersectObjects(this.mouseReactive)
+    intersects.forEach(obj => console.log('Mouse is over ', obj.object.data))
   }
 }
 
-export { Game }
+export { GameRenderer }

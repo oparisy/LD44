@@ -130,7 +130,7 @@ C'est le cas de mes modèles glTF
 
 Il faut ensuite obtenir le publicPath pour obtenir la "base URL"
 => le chargement fonctionne !
-Push vers gh-pages (npm run build && commit && git subtree push --prefix dist origin gh-pages && push)
+Push vers gh-pages (npm run build && commit && git subtree push --prefix dist origin gh-pages && git push)
 pour vérifier fonctionnement en prod
 => OK sur gh-pages !
 
@@ -150,3 +150,13 @@ Pour garder les choses simples : chaque "tuile" de terrain sera un mesh et une g
 
 
 Pour plus tard, exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm
+
+
+28/04/2019 (dimanche)
+Plusieurs réveils nocturnes, mais j'ai bien fait de prendre le temps de dormir
+Allocation du temps restant :
+- jusqu'à 13h max : core gameplay (compteurs, règles, interactions permettant de jouer)
+- reste du temps : polish (effets 3D, son, page d'accueil, trois notes de musique...)
+
+OK raycasting mis au point pour pouvoir détecter arbres (j'ai mis du temps à comprendre
+comment ajuster avec le fait que le canevas ne prend pas l'ensemble de la fenêtre)

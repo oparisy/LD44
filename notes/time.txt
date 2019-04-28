@@ -17,4 +17,8 @@
 19h45 On peut instancier les arbres pour les placer programmatiquement ; pause
 21h00 Reprise après repas et visite Davy
 21h45 Modèle mémoire minimal de sol (grille), pousse arbres aléatoire avec tweening
-23h00 Amélioration modérées layout... Fin de journée
+23h00 Amélioration modérées layout... Fin de journée (trop fatigué)
+
+28/04/2019 (dimanche)
+08h00 Bien reposé ! Reprise.
+09h30 Composant basique pour panneau de gauche, raycasting arbres
