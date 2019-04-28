@@ -30,7 +30,6 @@ export default {
     // I'm not proud! But I can't seem to be able to fix canvas size otherwise
     // (excepted with a fixed size in CSS)
       let totalHeight = window.innerHeight
-      console.log('totalHeight', totalHeight)
 
       const margin = 17
 
@@ -44,7 +43,6 @@ export default {
   methods: {
     onNextLevel: function () {
       if (this.gameController.onBuyNextLevel()) {
-        console.log('Reset game state to next level')
         this.$refs.mainCanvas.toNextLevel()
       }
     }

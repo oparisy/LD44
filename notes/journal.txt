@@ -184,3 +184,8 @@ j'ai réutilisé l'astuce du redimensionnement par javascript
 
 Page de compo créée : https://ldjam.com/events/ludum-dare/44/woodlot-owner
 Il faudra ajouter des images par la suite
+
+J'ai pu ajouter quelques règles et éléments de confort à la fin,
+et faire l'ensemble du polish CSS que j'avais prévu.
+
+Le jeu est jouable ; j'arrête.

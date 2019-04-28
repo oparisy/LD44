@@ -8,13 +8,13 @@
     <div id="actions">
       <span class="label">Planted on click:</span><br/>
       <div id="radios">
-      <input type="radio" id="oak" value="oak" v-model="gameController.toPlant"><label for="oak">Oak</label><br/>
-      <input type="radio" id="pine" value="pine" v-model="gameController.toPlant"><label for="pine">Pine</label><br/>
-      <input type="radio" id="poplar" value="poplar" v-model="gameController.toPlant"><label for="poplar">Poplar</label><br/>
+      <span :title="getTreeInfo('oak')"><input type="radio" id="oak" value="oak" v-model="gameController.toPlant"><label for="oak">Oak</label></span>&nbsp;
+      <span :title="getTreeInfo('pine')"><input type="radio" id="pine" value="pine" v-model="gameController.toPlant"><label for="pine">Pine</label></span>&nbsp;
+      <span :title="getTreeInfo('poplar')"><input type="radio" id="poplar" value="poplar" v-model="gameController.toPlant"><label for="poplar">Poplar</label></span>
       </div>
       <div id="hint">(Click on a tree to cut it)</div>
     </div>
-    <div id="nextlevel"><button type="button" v-on:click="onNextLevel">Buy Bigger Land</button></div>
+    <div id="nextlevel"><button type="button" v-on:click="onNextLevel" :title="'Cost: ' + gameController.nextLevelCost">Buy Bigger Land</button></div>
     <div id="navbox">
       <div id="nav">
       <router-link to="/">Back to Home</router-link>
@@ -31,6 +31,11 @@ export default {
     gameController: Object
   },
   methods: {
+    getTreeInfo: function (treeKind) {
+      let cost = this.gameController.costFor(treeKind)
+      let gain = this.gameController.gainFor(treeKind)
+      return `Cost: ${cost}\nGain: ${gain}`
+    },
     onNextLevel: function () {
       this.$emit('next-level')
     }

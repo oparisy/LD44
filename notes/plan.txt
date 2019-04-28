@@ -19,17 +19,17 @@ Dimanche :
  * [Fait] Mécanisme de niveau : des terrains de plus en plus grands
  * [Fait] Page d'accueil
  * [Fait] Créer page compo
- * [Fait] Améliorer CSS control panel
-
-TODO :
-* "Equilibrage" (les arbres ne doivent pas pousser instantanément, pas de crédits négatifs...)
+ * [Fait] Améliorer CSS control panel + tooltips
+ * [Fait] Pas de crédits négatifs possibles
+ * [Fait] Différents prix pour les arbres
 
 Renoncé à :
-* Musique (bosca ceoil)
-* Gadgets (herbe, insectes)
+ * Equilibrage : les arbres ne doivent pas pousser instantanément
+ * Musique (bosca ceoil)
+ * Gadgets (herbe, insectes)
 
 Bugs :
-* Détection de clic parfois poussive, ajouter bouding box ?
+ * Détection de clic parfois poussive, ajouter bouding box ?
 
 Post-compo :
-* Faire page github, y créditer https://github.com/KilledByAPixel/ZzFX
+ * Faire page github, y créditer https://github.com/KilledByAPixel/ZzFX

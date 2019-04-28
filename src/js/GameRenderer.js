@@ -412,11 +412,12 @@ class GameRenderer {
 
     let cell = this.overedGround
     if (cell && !this.groundData[cell.x][cell.y]) {
-      // Plant a tree!
-      let tree = this.createTree3DAndUpdateModel(this.gameController.toPlant, cell.x, cell.y)
-
       // Update game model
-      this.gameController.onTreePlanted(tree)
+      if (this.gameController.canPlantTree(this.gameController.toPlant)) {
+        // Plant a tree!
+        let tree = this.createTree3DAndUpdateModel(this.gameController.toPlant, cell.x, cell.y)
+        this.gameController.onTreePlanted(tree)
+      }
     }
   }
 

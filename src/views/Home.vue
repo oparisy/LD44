@@ -4,7 +4,7 @@
     <h1>Your (forest) life is currency!</h1>
 
     <div id="details"><span><p>Let's manage your woodlot.</p><p>Plant different species of trees, then sell their wood for money.</p><p>
-      If you can earn enough currency, buy a bigger land!</p></span></div>
+      If you can earn enough, buy a bigger land!</p></span></div>
 
     <div id="nav">
       <router-link to="/game">Click to Play!</router-link>
