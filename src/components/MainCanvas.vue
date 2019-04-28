@@ -43,5 +43,6 @@ export default {
   margin: 0;
   background-color: rgb(209, 32, 200);
   height: 100%;
+  border-radius: 10px;
 }
 </style>

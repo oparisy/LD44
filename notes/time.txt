@@ -24,3 +24,6 @@
 09h30 Composant basique pour panneau de gauche, raycasting arbres
 09h55 On peut couper les arbres et être crédité ; pause
 12h15 On peut planter des arbres ; pause
+13h45 Reprise
+14h15 Un peu de travail sur CSS control panel
+15h15 Améliorations fontes, couleurs et dimensions CSS

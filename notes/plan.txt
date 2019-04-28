@@ -9,17 +9,20 @@ Dimanche :
  * [Fait] Compteur de crédits
  * [Fait] Interactions souris minimales avec les arbres
  * [Fait] UI pour dépenser de l'argent
+ * [Fait] Layout control panel
+ * [Fait] Tailles et marges CSS
 
 Nice to have :
-* Moteur de terrain (hauteurs)
-* Type de terrain (sol et eau)
-* Gadgets (herbe, insectes)
-* hover pour savoir quel est l'âge et la valeur d'un arbre
-* Sons
-* Musiue
+* Heure
 * Cycle jour / nuit
 * Ombres
-* Terrain extensible
-* Détection de clic parfois poussive, ajouter bouding box lors du polish ?
 * Exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm
-
+* Moteur de terrain (hauteurs)
+* Détection de clic parfois poussive, ajouter bouding box ?
+* Sons
+* Page d'accueil
+* "Equilibrage"
+* Terrain extensible
+* Gadgets (herbe, insectes)
+* Musique
+* hover pour savoir quel est l'âge et la valeur d'un arbre

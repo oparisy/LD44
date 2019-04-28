@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <p>Woodlot Owner</p>
-    </div>
+    <div class="toptitle">Woodlot Owner</div>
     <router-view/>
   </div>
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Holtwood+One+SC');
+
 html {
     min-height:100%;
 }
 body {
+  margin-left:15px;
     position: relative;
     min-height:100hv;
 }
@@ -33,5 +34,14 @@ body {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.toptitle {
+  font-family: 'Holtwood One SC', serif;
+  font-size: 2em;
+  border-radius: 10px;
+  background-color: darkslategrey;
+  color: cadetblue;
+  padding:15px;
 }
 </style>

@@ -162,3 +162,5 @@ comment ajuster avec le fait que le canevas ne prend pas l'ensemble de la fenêt
 On peut maintenant cliquer sur les arbres pour les couper et être crédité !
 Le mécanise de propagation de valeurs dans vue est plus "automatique" que je ne le craignais, bien
 
+Travail important sur CSS, marge, positionnements...
+En désespoir de cause j'ai redimensionné le canvas en JavaScript depuis mounted()

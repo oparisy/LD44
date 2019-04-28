@@ -1,13 +1,7 @@
 <template>
-  <div class="about">
-    <!-- h1>This is the game page</h1 -->
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
-    <div id="root">
-      <div id="leftpane"><ControlPanel v-bind:gameController="gameController"/></div>
-      <div id="canvas"><MainCanvas v-bind:gameController="gameController"/></div>
-    </div>
+  <div id="root">
+    <div id="leftpane"><ControlPanel v-bind:gameController="gameController"/></div>
+    <div id="canvas"><MainCanvas v-bind:gameController="gameController"/></div>
   </div>
 </template>
 
@@ -26,33 +20,41 @@ export default {
       gameController: new GameController() }
   },
   mounted () {
-    // this.gameController = new GameController()
+    window.addEventListener('resize', adjustSize)
+    adjustSize()
+
+    function adjustSize () {
+    // I'm not proud! But I can't seem to be able to fix canvas size otherwise
+    // (excepted with a fixed size in CSS)
+      let totalHeight = window.innerHeight
+      console.log('totalHeight', totalHeight)
+
+      const margin = 17
+
+      let root = document.getElementById('root')
+      root.style.height = (totalHeight - root.offsetTop - margin) + 'px'
+
+      let canvas = document.getElementById('canvas')
+      canvas.style.height = (totalHeight - canvas.offsetTop - margin) + 'px'
+    }
   }
 }
 </script>
 
 // Cannot get rid of the fixed height for #canvas below!
 <style scoped>
-#about {
-  align-items: stretch;
-  padding:0px;
-  margin: 0px;
-  background-color: maroon;
-}
 #root {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  background-color:crimson;
+  margin-top:7px;
 }
 #leftpane {
   flex:1;
-  background-color: cornflowerblue;
   margin-left: 10px;
+  margin-right: 7px;
 }
 #canvas {
   flex:3;
-  background-color: green;
-  height: 750px;
 }
 </style>
