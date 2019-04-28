@@ -5,7 +5,7 @@
       <router-link to="/">Home</router-link>
     </div>
     <div id="root">
-      <div id="leftpane"><ControlPanel v-bind:credits="gameController.credits"/></div>
+      <div id="leftpane"><ControlPanel v-bind:gameController="gameController"/></div>
       <div id="canvas"><MainCanvas v-bind:gameController="gameController"/></div>
     </div>
   </div>
@@ -23,10 +23,10 @@ export default {
   },
   data () {
     return {
-      gameController: null }
+      gameController: new GameController() }
   },
   mounted () {
-    this.gameController = new GameController()
+    // this.gameController = new GameController()
   }
 }
 </script>

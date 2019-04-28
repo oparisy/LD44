@@ -7,11 +7,9 @@ Samedi :
 
 Dimanche :
  * [Fait] Compteur de crédits
- * [Fait] Interactions souris minimales avec les arbres 
+ * [Fait] Interactions souris minimales avec les arbres
+ * [Fait] UI pour dépenser de l'argent
 
-Core gameplay :
-* UI pour dépenser de l'argent
- 
 Nice to have :
 * Moteur de terrain (hauteurs)
 * Type de terrain (sol et eau)
@@ -22,3 +20,6 @@ Nice to have :
 * Cycle jour / nuit
 * Ombres
 * Terrain extensible
+* Détection de clic parfois poussive, ajouter bouding box lors du polish ?
+* Exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm
+

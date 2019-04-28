@@ -23,7 +23,8 @@ class GameRenderer {
     // The currently overed tree
     this.overed = null
 
-    this.mouse = new THREE.Vector2()
+    // Deliberately out of canvas normalized coordinates (avoid spurious hits on start)
+    this.mouse = new THREE.Vector2(42, 42)
 
     this.setupGroundData()
 
@@ -74,13 +75,21 @@ class GameRenderer {
   createGround () {
     // Add a temporary ground plane
     let groundColor = 0x465b15
-    let groundGeo = new THREE.PlaneGeometry(gridSize * tileSize, gridSize * tileSize)
+    let groundGeo = new THREE.PlaneGeometry(gridSize * tileSize, gridSize * tileSize, gridSize, gridSize)
+
+    // Debugging purpose
+    // let groundMat = new THREE.MeshBasicMaterial({ wireframe: true, side: THREE.DoubleSide })
+
     let groundMat = new THREE.MeshPhongMaterial({
       color: groundColor, side: THREE.DoubleSide
     })
+
     let groundMesh = new THREE.Mesh(groundGeo, groundMat)
     groundMesh.rotation.x = Math.PI / 2
     this.scene.add(groundMesh)
+
+    // Keep track of this for collision purpose
+    this.groundMesh = groundMesh
   }
 
   createLights (scene) {
@@ -111,7 +120,7 @@ class GameRenderer {
   }
 
   setupGroundData () {
-    // Each groundData[x][y] is either undefined or a tree instance
+    // Each groundData[x][y] is either null/undefined or a tree instance
     this.groundData = []
     for (let i = 0; i < gridSize; i++) {
       let arr = []
@@ -145,10 +154,17 @@ class GameRenderer {
     })
   }
 
-  createTree (obj3D, gx, gy, data) {
-    let x = gx * tileSize
-    let z = gy * tileSize
-    // let d = tileSize - 2
+  createTree3D (data) {
+    let kindName = data.kind
+    let gx = data.gx
+    let gy = data.gy
+
+    // "tileSize / 2" offset to be in the middle of cells
+    let x = (gx - gridSize / 2) * tileSize + tileSize / 2
+    let z = (gy - gridSize / 2) * tileSize + tileSize / 2
+
+    let obj3D = kindName === 'oak' ? this.oak : (kindName === 'pine' ? this.pine : this.poplar)
+
     let instance = obj3D.clone()
     instance.position.x = x
     instance.position.z = z
@@ -181,20 +197,24 @@ class GameRenderer {
     // Pick a random, unused location
     let gx = Math.trunc(Math.random() * gridSize)
     let gy = Math.trunc(Math.random() * gridSize)
-    if (this.groundData[gx][gy] !== undefined) {
+    if (this.groundData[gx][gy]) {
       // Will slow over time, but this is just for testing purpose
       return
     }
 
     // Pick a tree at random
     let val = Math.random()
-    let kind = val < 0.33 ? this.oak : val < 0.66 ? this.pine : this.poplar
+    let kindName = val < 0.33 ? 'oak' : val < 0.66 ? 'pine' : 'poplar'
 
-    let treeData = { type: kind.name, x: gx, y: gy }
+    this.createTree3DAndUpdateModel(kindName, gx, gy)
+  }
+
+  createTree3DAndUpdateModel (kindName, gx, gy) {
+    let treeData = { kind: kindName, gx: gx, gy: gy }
     this.groundData[gx][gy] = treeData
-
-    let instance = this.createTree(kind, gx - gridSize / 2, gy - gridSize / 2, treeData)
+    let instance = this.createTree3D(treeData)
     treeData.instance = instance
+    return treeData
   }
 
   animate (time) {
@@ -204,7 +224,7 @@ class GameRenderer {
     this.render()
 
     if (this.modelsLoaded) {
-      if (Math.random() > 0.9) {
+      if (Math.random() > 0.99) {
         this.addRandomTree()
       }
     }
@@ -237,11 +257,28 @@ class GameRenderer {
     this.renderer.render(this.scene, this.camera)
   }
 
+  // TODO Only call this in onClick if no visual feedbacks when overed?
   checkOvered () {
     let raycaster = new THREE.Raycaster()
     raycaster.setFromCamera(this.mouse, this.camera)
     let intersects = raycaster.intersectObjects(this.mouseReactive)
     this.overed = intersects.length > 0 ? intersects[0].object.data : null
+
+    // If not a tree, try the ground
+    this.overedGround = null
+    if (!this.overed) {
+      let groundIntersects = raycaster.intersectObject(this.groundMesh)
+      if (groundIntersects.length > 0) {
+        let groundHit = groundIntersects[0]
+        let faceIndex = groundHit.faceIndex
+
+        // Compute coordinates from the faceIndex (take advantage of PlaneGeometry regular structure)
+        let squareIndex = (faceIndex - (faceIndex % 2)) / 2
+        let gx = squareIndex % gridSize
+        let gy = gridSize - 1 - (squareIndex - gx) / gridSize
+        this.overedGround = new THREE.Vector2(gx, gy)
+      }
+    }
   }
 
   onMouseMove (event) {
@@ -252,7 +289,7 @@ class GameRenderer {
   }
 
   onClick (event) {
-    if (this.overed !== null) {
+    if (this.overed) {
       // Cut that tree!
       let tree = this.overed
 
@@ -264,8 +301,17 @@ class GameRenderer {
       this.mouseReactive = this.mouseReactive.filter(c => !toRemove.has(toRemove))
 
       // Update game model
-      this.groundData[tree.x][tree.y] = undefined
+      this.groundData[tree.gx][tree.gy] = null
       this.gameController.onTreeCut(tree)
+    }
+
+    let cell = this.overedGround
+    if (cell && !this.groundData[cell.x][cell.y]) {
+      // Plant a tree!
+      let tree = this.createTree3DAndUpdateModel(this.gameController.toPlant, cell.x, cell.y)
+
+      // Update game model
+      this.gameController.onTreePlanted(tree)
     }
   }
 }
