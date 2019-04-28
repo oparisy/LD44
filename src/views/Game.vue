@@ -52,7 +52,6 @@ export default {
 }
 </script>
 
-// Cannot get rid of the fixed height for #canvas below!
 <style scoped>
 #root {
   display: flex;

@@ -176,3 +176,7 @@ Rendu "flat" moche pour le terrain => je reste en smooth. Phong n'est pas réali
 => je garde
 
 J'ai pu sans trop de difficulté faire un mécanisme de réinitialisation permettant de changer de niveau
+
+Je viens de faire une publication gh-pages
+
+Travail sur page d'accueil. Comme d'habitude, beaucoup de mal à remplir verticalement

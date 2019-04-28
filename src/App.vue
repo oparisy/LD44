@@ -7,6 +7,7 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Holtwood+One+SC');
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab');
 
 html {
     min-height:100%;

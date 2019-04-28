@@ -17,14 +17,14 @@ Dimanche :
  * [Fait] Sons
  * [Fait] Moteur de terrain (hauteurs) + matériau moins "plastique"
  * [Fait] Mécanisme de niveau : des terrains de plus en plus grands
+ * [Fait] Page d'accueil
 
 TODO :
-* Page d'accueil
 * Créer page compo
 * "Equilibrage" (les arbres ne doivent pas pousser instantanément, pas de crédits négatifs...)
 * Améliorer CSS control panel
 
-Bonus :
+Renoncé à :
 * Musique (bosca ceoil)
 * Gadgets (herbe, insectes)
 
