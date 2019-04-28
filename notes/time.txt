@@ -35,5 +35,7 @@
 20h00 Reprise
 21h00 Système de niveaux
 22h00 Page d'accueil terminée
+22h20 Page de compo faite
+22h45 CSS page principale nettoyée
 
-Je dois être dans la voiture à 23h => page compo, derniers tests etc. à 22h
+Je dois être dans la voiture à 23h30 => derniers tests etc. à 22h30

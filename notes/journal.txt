@@ -179,4 +179,8 @@ J'ai pu sans trop de difficulté faire un mécanisme de réinitialisation permet
 
 Je viens de faire une publication gh-pages
 
-Travail sur page d'accueil. Comme d'habitude, beaucoup de mal à remplir verticalement
+Travail sur page d'accueil. Comme d'habitude, beaucoup de mal à remplir verticalement ;
+j'ai réutilisé l'astuce du redimensionnement par javascript
+
+Page de compo créée : https://ldjam.com/events/ludum-dare/44/woodlot-owner
+Il faudra ajouter des images par la suite

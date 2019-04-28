@@ -18,11 +18,11 @@ Dimanche :
  * [Fait] Moteur de terrain (hauteurs) + matériau moins "plastique"
  * [Fait] Mécanisme de niveau : des terrains de plus en plus grands
  * [Fait] Page d'accueil
+ * [Fait] Créer page compo
+ * [Fait] Améliorer CSS control panel
 
 TODO :
-* Créer page compo
 * "Equilibrage" (les arbres ne doivent pas pousser instantanément, pas de crédits négatifs...)
-* Améliorer CSS control panel
 
 Renoncé à :
 * Musique (bosca ceoil)
