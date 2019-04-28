@@ -166,3 +166,6 @@ Travail important sur CSS, marge, positionnements...
 En désespoir de cause j'ai redimensionné le canvas en JavaScript depuis mounted()
 
 Cette fois-ci, les choses se sont bien passées avec les ombres
+
+Je vais essayer ceci pour le son :
+https://www.reddit.com/r/ludumdare/comments/bgyu0l/announcing_zzfx_the_zuper_zmall_zeeded_zound/

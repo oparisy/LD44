@@ -17,7 +17,8 @@ export default {
   },
   data () {
     return {
-      gameController: new GameController() }
+      gameController: new GameController()
+    }
   },
   mounted () {
     window.addEventListener('resize', adjustSize)

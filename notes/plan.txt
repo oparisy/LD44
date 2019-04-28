@@ -14,17 +14,21 @@ Dimanche :
  * [Fait] Heure
  * [Fait] Cycle jour / nuit
  * [Fait] Ombres (Exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm)
+ * [Fait] Sons
 
 TODO :
-* Sons
-* Moteur de terrain (hauteurs) + matériaux moins "plastique"
+* Moteur de terrain (hauteurs) + matériau moins "plastique"
 * Page d'accueil
 * Créer page compo
-* "Equilibrage"
+* "Equilibrage" (les arbres ne doivent pas pousser instantanément)
+* Mécanisme de niveau : des terrains de plus en plus grands, seedés avec qq arbres
 
 Bonus :
-* Terrain extensible
+* Musique (bosca ceoil)
 * Gadgets (herbe, insectes)
-* Musique
-* hover pour savoir quel est l'âge et la valeur d'un arbre
+
+Bugs :
 * Détection de clic parfois poussive, ajouter bouding box ?
+
+Post-compo :
+* Faire page github, y créditer https://github.com/KilledByAPixel/ZzFX
