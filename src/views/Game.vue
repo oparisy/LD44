@@ -6,7 +6,7 @@
     </div>
     <div id="root">
       <div id="leftpane"><ControlPanel v-bind:credits="gameController.credits"/></div>
-      <div id="canvas"><MainCanvas /></div>
+      <div id="canvas"><MainCanvas v-bind:gameController="gameController"/></div>
     </div>
   </div>
 </template>

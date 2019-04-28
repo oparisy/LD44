@@ -22,3 +22,4 @@
 28/04/2019 (dimanche)
 08h00 Bien reposé ! Reprise.
 09h30 Composant basique pour panneau de gauche, raycasting arbres
+09h55 On peut couper les arbres et être crédité ; pause

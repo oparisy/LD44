@@ -1,5 +1,5 @@
 <template>
-  <div id="container" v-on:mousemove="onMouseMove"></div>
+  <div id="container" v-on:mousemove="onMouseMove" v-on:click="onClick"></div>
 </template>
 
 <script>
@@ -7,6 +7,9 @@ import { GameRenderer } from '../js/GameRenderer.js'
 
 export default {
   name: 'MainCanvas',
+  props: {
+    gameController: Object
+  },
   data () {
     return {
       gameRenderer: null,
@@ -18,11 +21,16 @@ export default {
       if (this.gameRenderer) {
         this.gameRenderer.onMouseMove(event)
       }
+    },
+    onClick (event) {
+      if (this.gameRenderer) {
+        this.gameRenderer.onClick(event)
+      }
     }
   },
   mounted () {
     let container = document.getElementById('container')
-    this.gameRenderer = new GameRenderer(container, this.publicPath)
+    this.gameRenderer = new GameRenderer(container, this.publicPath, this.gameController)
     this.gameRenderer.animate()
   }
 }

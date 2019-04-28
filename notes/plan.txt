@@ -6,12 +6,12 @@ Samedi :
 * [Fait] Pousse arbres avec tweening
 
 Dimanche :
+ * [Fait] Compteur de crédits
+ * [Fait] Interactions souris minimales avec les arbres 
 
 Core gameplay :
- * Compteur de crédits
- * UI pour dépenser de l'argent
- * Interactions souris minimales avec l'environnement 
-
+* UI pour dépenser de l'argent
+ 
 Nice to have :
 * Moteur de terrain (hauteurs)
 * Type de terrain (sol et eau)

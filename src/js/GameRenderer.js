@@ -10,15 +10,18 @@ const tileSize = 8 // In world units
 const gridSize = 10 // In cells (per column or line)
 
 class GameRenderer {
-  constructor (container, publicPath) {
+  constructor (container, publicPath, gameController) {
     this.container = container
     this.publicPath = publicPath
+    this.gameController = gameController
     this.width = container.clientWidth
     this.height = container.clientHeight
-    console.log('container init size:', this.width, this.height)
 
     // Three objects which can react to a mouse over
     this.mouseReactive = []
+
+    // The currently overed tree
+    this.overed = null
 
     this.mouse = new THREE.Vector2()
 
@@ -190,7 +193,8 @@ class GameRenderer {
     let treeData = { type: kind.name, x: gx, y: gy }
     this.groundData[gx][gy] = treeData
 
-    this.createTree(kind, gx - gridSize / 2, gy - gridSize / 2, treeData)
+    let instance = this.createTree(kind, gx - gridSize / 2, gy - gridSize / 2, treeData)
+    treeData.instance = instance
   }
 
   animate (time) {
@@ -233,6 +237,13 @@ class GameRenderer {
     this.renderer.render(this.scene, this.camera)
   }
 
+  checkOvered () {
+    let raycaster = new THREE.Raycaster()
+    raycaster.setFromCamera(this.mouse, this.camera)
+    let intersects = raycaster.intersectObjects(this.mouseReactive)
+    this.overed = intersects.length > 0 ? intersects[0].object.data : null
+  }
+
   onMouseMove (event) {
     // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
     // Adjusted since canvas does not use full window, see https://stackoverflow.com/q/34892328/38096
@@ -240,11 +251,22 @@ class GameRenderer {
     this.mouse.y = -(event.offsetY / this.height) * 2 + 1
   }
 
-  checkOvered () {
-    let raycaster = new THREE.Raycaster()
-    raycaster.setFromCamera(this.mouse, this.camera)
-    let intersects = raycaster.intersectObjects(this.mouseReactive)
-    intersects.forEach(obj => console.log('Mouse is over ', obj.object.data))
+  onClick (event) {
+    if (this.overed !== null) {
+      // Cut that tree!
+      let tree = this.overed
+
+      // Remove model (TODO animate)
+      this.scene.remove(tree.instance)
+
+      // Remove meshes from raycaster
+      let toRemove = new Set(tree.instance.children)
+      this.mouseReactive = this.mouseReactive.filter(c => !toRemove.has(toRemove))
+
+      // Update game model
+      this.groundData[tree.x][tree.y] = undefined
+      this.gameController.onTreeCut(tree)
+    }
   }
 }
 

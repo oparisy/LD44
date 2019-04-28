@@ -160,3 +160,6 @@ Allocation du temps restant :
 
 OK raycasting mis au point pour pouvoir détecter arbres (j'ai mis du temps à comprendre
 comment ajuster avec le fait que le canevas ne prend pas l'ensemble de la fenêtre)
+
+On peut maintenant cliquer sur les arbres pour les couper et être crédité !
+Détection de clic parfois poussive, ajouter bouding box lors du polish ?
