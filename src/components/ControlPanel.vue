@@ -1,7 +1,7 @@
 <template>
   <div id="controlroot">
     <div id="currency"><span class="label">Currency: </span><span class="value">{{gameController.credits}}</span></div>
-    <div id="clock"><span class="label">Clock: </span><span class="value">{{gameController.hour}}h00</span></div>
+    <div id="clock"><span class="label">Clock: </span><span class="value">{{Math.floor(gameController.hour)}}h00</span></div>
     <div id="actions">
       <span class="label">Planted on click:</span><br/>
       <input type="radio" id="oak" value="oak" v-model="gameController.toPlant"><label for="oak">Oak</label><br/>

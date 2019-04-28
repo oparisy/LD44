@@ -12,17 +12,19 @@ Dimanche :
  * [Fait] Layout control panel
  * [Fait] Tailles et marges CSS
  * [Fait] Heure
+ * [Fait] Cycle jour / nuit
+ * [Fait] Ombres (Exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm)
 
-Nice to have :
-* Cycle jour / nuit
-* Ombres
-* Exemple ombre + caméra orthographique + lumière en déplacement : https://codepen.io/Jobarbo/pen/zZMwVm
-* Moteur de terrain (hauteurs)
-* Détection de clic parfois poussive, ajouter bouding box ?
+TODO :
 * Sons
+* Moteur de terrain (hauteurs) + matériaux moins "plastique"
 * Page d'accueil
+* Créer page compo
 * "Equilibrage"
+
+Bonus :
 * Terrain extensible
 * Gadgets (herbe, insectes)
 * Musique
 * hover pour savoir quel est l'âge et la valeur d'un arbre
+* Détection de clic parfois poussive, ajouter bouding box ?

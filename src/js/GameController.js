@@ -2,13 +2,14 @@
 
 const initCredits = 10000
 const initToPlant = 'pine'
+const initHour = 12
 
 class GameController {
   constructor () {
     this.credits = initCredits
     this.toPlant = initToPlant
     this.elapsedTime = 0
-    this.hour = 12
+    this.hour = initHour
   }
 
   onTreeCut (tree) {
@@ -27,9 +28,11 @@ class GameController {
     this.elapsedTime += delta
 
     // One game hour per browser second
-    while (this.elapsedTime > 1000) {
-      this.hour = (this.hour + 1) % 24
-      this.elapsedTime -= 1000
+    this.hour = (this.hour + (delta / 1000)) % 24
+
+    // Avoid issues with hot reload
+    if (isNaN(this.hour)) {
+      this.hour = initHour
     }
   }
 }

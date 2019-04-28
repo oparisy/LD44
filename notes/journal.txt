@@ -164,3 +164,5 @@ Le mécanise de propagation de valeurs dans vue est plus "automatique" que je ne
 
 Travail important sur CSS, marge, positionnements...
 En désespoir de cause j'ai redimensionné le canvas en JavaScript depuis mounted()
+
+Cette fois-ci, les choses se sont bien passées avec les ombres

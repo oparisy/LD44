@@ -48,6 +48,8 @@ class GameRenderer {
 
     this.renderer.setSize(this.width, this.height)
 
+    this.renderer.shadowMap.enabled = true
+
     this.container.appendChild(this.renderer.domElement)
   }
 
@@ -73,7 +75,6 @@ class GameRenderer {
   }
 
   createGround () {
-    // Add a temporary ground plane
     let groundColor = 0x465b15
     let groundGeo = new THREE.PlaneGeometry(gridSize * tileSize, gridSize * tileSize, gridSize, gridSize)
 
@@ -86,6 +87,8 @@ class GameRenderer {
 
     let groundMesh = new THREE.Mesh(groundGeo, groundMat)
     groundMesh.rotation.x = Math.PI / 2
+    groundMesh.receiveShadow = true
+
     this.scene.add(groundMesh)
 
     // Keep track of this for collision purpose
@@ -98,25 +101,47 @@ class GameRenderer {
     // let color = scale(0.8).hex()
     let color = 0x7f7f7f
 
+    this.envLights = []
+
     var light = new THREE.DirectionalLight(color)
     light.position.set(10, 0, 0)
+    // light.castShadow = true
     this.scene.add(light)
     // scene.add(new THREE.DirectionalLightHelper(light))
+    this.envLights.push(light)
 
     var light1 = new THREE.DirectionalLight(color)
     light1.position.set(0, 10, 0)
+    // light1.castShadow = true
     this.scene.add(light1)
-    // scene.add(new THREE.DirectionalLightHelper(light))
+    // scene.add(new THREE.DirectionalLightHelper(light1))
+    this.envLights.push(light1)
 
     var light2 = new THREE.DirectionalLight(color)
     light2.position.set(0, 0, 10)
+    // light2.castShadow = true
     this.scene.add(light2)
-    // scene.add(new THREE.DirectionalLightHelper(light))
+    // scene.add(new THREE.DirectionalLightHelper(light2))
+    this.envLights.push(light2)
 
     var light3 = new THREE.PointLight(color)
     light3.position.set(0, 25, 100)
+    // light3.castShadow = true
     this.scene.add(light3)
-    // scene.add(new THREE.PointLightHelper(light))
+    // scene.add(new THREE.PointLightHelper(light3))
+    this.envLights.push(light3)
+
+    // The sun
+    let sphere = new THREE.SphereGeometry(0.5, 16, 8)
+
+    this.sunLight = new THREE.PointLight(0xFFFFFF, 1, 1000, 2)
+    // this.sunlightMesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xffffff }))
+    // this.sunLight.add(this.sunlightMesh)
+    // this.sunLight.hasMesh = true
+
+    this.sunLight.position.set(-10, 10, 0)
+    this.sunLight.castShadow = true
+    this.scene.add(this.sunLight)
   }
 
   setupGroundData () {
@@ -142,6 +167,12 @@ class GameRenderer {
           this.pine = child
         } else if (child.name === 'Poplar') {
           this.poplar = child
+        }
+
+        // We want tree parts to cast shadows
+        if (child.type === 'Mesh') {
+          child.castShadow = true
+          child.receiveShadow = true
         }
       })
 
@@ -232,6 +263,29 @@ class GameRenderer {
     this.checkForResize()
 
     this.gameController.onTick(time)
+
+    // compute lights intensity
+    // Max intensity at 13h, 0 intensity before 7h and after 19h
+    let hour = this.gameController.hour
+    let intensity = Math.max(0, Math.cos(Math.PI / 2 * (hour - 13) / 6))
+
+    // Dim support light at night, but always keep some
+    this.envLights.forEach(l => { l.intensity = 0.75 + intensity / 4 })
+
+    // No sun at night => directly use intensity
+    this.sunLight.intensity = intensity
+    // if (this.intensity < 0 && this.sunLight.hasMesh) {
+    //   this.sunLight.remove(this.sunlightMesh)
+    //   this.sunLight.hasMesh = false
+    // } else if (this.intensity > 0 && !this.sunLight.hasMesh) {
+    //   this.sunLight.add(this.sunlightMesh)
+    //   this.sunLight.hasMesh = true
+    // }
+
+    // Let's rotate the sun
+    const radius = 60
+    let angle = Math.PI * (hour - 7) / 12
+    this.sunLight.position.set(radius * Math.cos(angle), radius * Math.sin(angle), 0)
   }
 
   // TODO This does not work actually (container does not change size)

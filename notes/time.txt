@@ -27,3 +27,5 @@
 13h45 Reprise
 14h15 Un peu de travail sur CSS control panel
 15h15 Améliorations fontes, couleurs et dimensions CSS
+15h30 Horloge en jeu
+16h45 Ombres, soleil se déplaçant, cycle jour/nuit ; pause
